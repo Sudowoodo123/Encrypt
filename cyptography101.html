@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Caesar Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .output {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Caesar Cipher Encryption</h2>
+        <label for="text">Enter Text:</label>
+        <input type="text" id="text" placeholder="Enter text to encrypt">
+        
+        <label for="shift">Shift (Key):</label>
+        <input type="number" id="shift" placeholder="Enter shift value" min="1">
+        
+        <button onclick="encryptText()">Encrypt Text</button>
+        
+        <div class="output">
+            <p>Encrypted Text:</p>
+            <p id="encrypted-text">---</p>
+        </div>
+    </div>
+
+    <script>
+        function encryptText() {
+            const text = document.getElementById('text').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            let encrypted = '';
+            
+            // Caesar Cipher Logic
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                if (/[a-zA-Z]/.test(char)) {
+                    const start = (char === char.toUpperCase()) ? 65 : 97;
+                    encrypted += String.fromCharCode(((char.charCodeAt(0) - start + shift) % 26) + start);
+                } else {
+                    encrypted += char; // Non-alphabet characters are not encrypted
+                }
+            }
+            
+            document.getElementById('encrypted-text').textContent = encrypted;
+        }
+    </script>
+
+</body>
+</html>
